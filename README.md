@@ -16,16 +16,27 @@ Windows だと `Release`, `Debug` フォルダなどができてしまうのが�
 `cmake-gui` をインストールする.
 
 このリポジトリを `C:\Users\hoge\sample\` にクローンしてあるとする.
-`Where is the source code:` には `C:\Users\hoge\sample\` を指定する.
+
+`cmake-gui`を起動して,
+`Where is the source code:` には `C:\Users\hoge\sample\` を,
 `Where to build the binaries:` には `C:\Users\hoge\sample\build\` を指定する.
-`cmake` が `boost` の検索に失敗することがあるので, `Add Entry` で
+変な場所に `boost` をインストールした場合, `cmake` が `boost` の検索に失敗することがある.
+その場合はどこを検索すればよいかのヒントが必要で, `Add Entry` で
 
 - `Name`: `BOOST_ROOT`
 - `Type`: `PATH`
-- `Value`: `boost` の `include`, `lib` をディレクトリを含むディレクトリ.
+- `Value`: `boost` の `include`, `lib` ディレクトリを含むディレクトリ.
 
-のように指定する. あとは, `Configure` -> `Generate` -> `Open Project` として,
-Visual Studio でビルドすればよい. ビルドの生成物は以下の通り.
+のように指定する. あくまでヒントなので, 含んでさえいれば適当でよい (あまりに遠すぎると失敗する可能性はあるが).
+
+あとは,
+
+1. `Configure` (generator を聞かれるので `VS 2017`, `x64` を指定する)
+2. `Generate`
+3. `Open Project`
+4. Visual Studio でビルド
+
+とすればよい. ビルドの生成物は以下の通り.
 
 - `build/bin/main.exe` (Release)
 - `build/lib/sample.lib` (Release)
@@ -33,8 +44,6 @@ Visual Studio でビルドすればよい. ビルドの生成物は以下の通�
 - `build/lib/sample-debug.lib` (Release)
 
 ### Linux
-
-`apt install cmake` などをする.
 
 このリポジトリを `/home/hoge/sample/` にクローンしてあるとする.
 
@@ -44,6 +53,9 @@ mkdir build && cd build
 cmake ..
 make
 ```
+
+基本的にはこれだけでよい. コンパイラを指定したいとき, `boost` の検索に失敗したときは,
+`cmake ..` を `cmake -DCMAKE_CXX_COMPILER=clang++ -DBOOST_ROOT=/path/to/boost ..` などと変更すればよい.
 
 ビルドの生成物は以下の通り.
 
