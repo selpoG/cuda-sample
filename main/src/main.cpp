@@ -1,7 +1,4 @@
-﻿#include <boost/version.hpp>
-#include <iostream>
-#include <memory>
-#include "sample.h"
+﻿#include "foo.h"
 
 int main()
 {
